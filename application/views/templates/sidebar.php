@@ -28,12 +28,6 @@
       <div class="sidebar-heading">
         Master Data
       </div>
-      <!-- Nav Item - Tables -->
-      <li class="nav-item <?php if ($title == 'Data User'){ echo 'active'; }; ?>">
-        <a class="nav-link pb-0" href="<?= base_url('data_user'); ?>">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Data Role</span></a>
-        </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item <?php if ($title == 'Data User'){ echo 'active'; }; ?>">

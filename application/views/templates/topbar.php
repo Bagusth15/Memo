@@ -81,7 +81,7 @@
               <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
               Edit Profil
             </a>
-            <a class="dropdown-item" href="<?= base_url('user/edit'); ?>">
+            <a class="dropdown-item" href="<?= base_url('user/changepassword'); ?>">
               <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
               Change Password
             </a>
