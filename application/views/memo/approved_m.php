@@ -12,7 +12,7 @@
             <input type="hidden" id="mm_id" name="mm_id" value="<?= $memo['mm_id'] ?>">
             <div class="form-group">
               <label for="nik">Memo No</label>
-              <input type="text" class="form-control" id="mm_no" name="mm_no" value="<?= $memo['mm_no'] ?>">
+              <input type="text" class="form-control" id="mm_no" name="mm_no" value="<?= $memo['mm_no'] ?>" required>
             </div>
             <div class="form-group">
               <label for="exampleSelectGender">Untuk</label>
@@ -27,15 +27,15 @@
             </div>
             <div class="form-group">
               <label for="name">Perihal</label>
-              <input type="text" class="form-control" id="mm_perihal" name="mm_perihal" value="<?= $memo['mm_perihal'] ?>">
+              <input type="text" class="form-control" id="mm_perihal" name="mm_perihal" value="<?= $memo['mm_perihal'] ?>" required>
             </div>
             <div class="form-group">
               <label for="name">Isi Memo</label>
-              <textarea class="ckeditor" id="mm_isi" name="mm_isi"><?= $memo['mm_isi'] ?></textarea>
+              <textarea class="ckeditor" id="mm_isi" name="mm_isi" required><?= $memo['mm_isi'] ?></textarea>
             </div>
             <div class="form-group">
               <label for="exampleInputEmail3">Note</label>
-              <input type="text" class="form-control" id="mm_note" name="mm_note" value="<?= $memo['mm_note'] ?>">
+              <input type="text" class="form-control" id="mm_note" name="mm_note" value="<?= $memo['mm_note'] ?>" required>
             </div>
             
             <button type="submit" class="btn btn-primary mr-1">Edit</button>

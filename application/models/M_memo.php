@@ -45,7 +45,6 @@ class M_memo extends CI_model {
 	public function tambahMemo()
 	{
 		$data = [
-			"mm_no" => $this->input->post('mm_no', true),
 			"mm_pengirim" => $this->input->post('mm_pengirim', true),
 			"mm_tujuan" => $this->input->post('mm_tujuan', true),
 			"mm_perihal" => $this->input->post('mm_perihal', true),
@@ -86,7 +85,6 @@ class M_memo extends CI_model {
 	public function ubahMemo()
 	{
 		$data = [
-			"mm_no" => $this->input->post('mm_no', true),
 			"mm_tujuan" => $this->input->post('mm_tujuan', true),
 			"mm_perihal" => $this->input->post('mm_perihal', true),
 			"mm_isi" => $this->input->post('mm_isi', true),
@@ -146,6 +144,49 @@ class M_memo extends CI_model {
 	public function hapusMemo($id)
 	{
 		$this->db->delete('tbl_memo', ['mm_id' => $id]);
+		$this->db->delete('tbl_memo_activity', ['ma_mm_id' => $id]);
+	}
+
+	public function jumlahNotifMasuk($nik)
+	{   
+		$query = $this->db->get_where('tbl_memo', ['mm_status' => 1, 'mm_tujuan'=> $nik]);
+		if($query->num_rows()>0)
+		{
+			return $query->num_rows();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public function isiNotifMasuk($nik)
+	{
+		$this->db->select('*');
+		$this->db->from('tbl_memo');
+		$this->db->join('tbl_user','tbl_memo.mm_pengirim=tbl_user.user_nik');
+		$this->db->where('mm_tujuan', $nik);
+		$this->db->where('mm_status', 1);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function getAllUser()
+	{
+		return $this->db->get('tbl_user')->result_array();
+	}
+
+	public function jumlahNotifUser()
+	{
+		$query = $this->db->get_where('tbl_user', ['user_is_active' => 0, 'user_role' => 0]);
+		if($query->num_rows()>0)
+		{
+			return $query->num_rows();
+		}
+		else
+		{
+			return 0;
+		}
 	}
 
 }

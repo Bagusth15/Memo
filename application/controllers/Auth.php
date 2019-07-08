@@ -9,6 +9,18 @@ class Auth extends CI_Controller
 		$this->load->library('form_validation');
 	}
 
+	public function error()
+	{
+		$data['title'] = 'Error-404';
+		$data['user'] = $this->db->get_where('tbl_user', ['user_id' => $this->session->userdata('user_id')])->row_array();
+		
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('templates/topbar', $data);
+		$this->load->view('auth/error-404', $data);
+		$this->load->view('templates/footer');
+	}
+
 	public function index()
 	{
 		if ($this->session->userdata('user_id')) {
@@ -48,7 +60,7 @@ class Auth extends CI_Controller
 						'user_role_id' => $user['user_role_id']
 					];
 					$this->session->set_userdata($data);
-					redirect('user');
+					redirect('dashboard');
 				} else {
 					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong password!</div>');
 					redirect('auth');
@@ -126,8 +138,7 @@ class Auth extends CI_Controller
 				'user_no_telp' => htmlspecialchars($this->input->post('user_no_telp', true)),
 				'user_email' => htmlspecialchars($this->input->post('user_email')),
 				'user_password' => password_hash($this->input->post('user_password1'), PASSWORD_DEFAULT),
-				'user_role' => 'Staff',
-				'user_is_active' => 1,
+				'user_is_active' => 0,
 				'user_date_created' => time()
 			];
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Congratulation! your account has been created. Please Login!</div>');

@@ -11,26 +11,31 @@
           <?= form_open_multipart('memo/tambah'); ?>
           <form class="forms-sample">
             <div class="form-group">
-              <label for="nik">Memo No</label>
-              <input type="text" class="form-control" id="mm_no" name="mm_no" value="">
-            </div>
-            <div class="form-group">
               <label for="exampleSelectGender">Untuk</label>
               <input type="hidden" id="mm_pengirim" name="mm_pengirim" value="<?= $user['user_nik']; ?>">
-              <select class="form-control" id="mm_tujuan" name="mm_tujuan">
-                <option>-- Pilih Bagian --</option>
-                <?php foreach ($user_role_m as $urm): ?>
-                <option value="<?= $urm['user_nik'] ?>"><?= $urm['user_name'] ?> | <?= $urm['user_role'] ?> <?= $urm['user_bagian'] ?></option>
-                <?php endforeach ?>
-              </select>
+              <?php if ($user['user_role'] == 'Staff'): ?>
+                <select class="form-control" id="mm_tujuan" name="mm_tujuan">
+                  <option>-- Pilih Bagian --</option>
+                  <?php foreach ($user_role_m as $urm): ?>
+                    <option value="<?= $urm['user_nik'] ?>"><?= $urm['user_name'] ?> | <?= $urm['user_role'] ?> <?= $urm['user_bagian'] ?></option>
+                  <?php endforeach ?>
+                </select>
+              <?php else: ?>
+                <select class="form-control" id="mm_tujuan" name="mm_tujuan">
+                  <option>-- Pilih Bagian --</option>
+                  <?php foreach ($user_role_d as $urd): ?>
+                    <option value="<?= $urd['user_nik'] ?>"><?= $urd['user_name'] ?> | <?= $urd['user_role'] ?> <?= $urd['user_bagian'] ?></option>
+                  <?php endforeach ?>
+                </select>
+              <?php endif ?>
             </div>
             <div class="form-group">
               <label for="name">Perihal</label>
-              <input type="text" class="form-control" id="mm_perihal" name="mm_perihal" value="">
+              <input type="text" class="form-control" id="mm_perihal" name="mm_perihal" value="" required>
             </div>
             <div class="form-group">
               <label for="name">Isi Memo</label>
-              <textarea class="ckeditor" id="mm_isi" name="mm_isi"></textarea>
+              <textarea class="form-control" rows="7" id="mm_isi" name="mm_isi" required></textarea>
             </div>
             <div class="form-group">
               <label for="exampleInputEmail3">Note</label>

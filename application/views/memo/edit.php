@@ -11,27 +11,30 @@
           <form class="forms-sample" method="post">
             <input type="hidden" id="mm_id" name="mm_id" value="<?= $memo['mm_id'] ?>">
             <div class="form-group">
-              <label for="nik">Memo No</label>
-              <input type="text" class="form-control" id="mm_no" name="mm_no" value="<?= $memo['mm_no'] ?>">
-            </div>
-            <div class="form-group">
               <label for="exampleSelectGender">Untuk</label>
               <input type="hidden" id="mm_pengirim" name="mm_pengirim" value="<?= $user['user_nik']; ?>">
               <select class="form-control" id="mm_tujuan" name="mm_tujuan">
                 <option value="<?= $memo_penerima['mm_tujuan'] ?>"><?= $memo_penerima['user_name'] ?> (<?= $memo_penerima['user_role'] ?> <?= $memo_penerima['user_bagian'] ?>)</option>
                 <option>-- Pilih Bagian --</option>
-                <?php foreach ($user_role_m as $urm): ?>
-                <option value="<?= $urm['user_nik'] ?>"><?= $urm['user_name'] ?> (<?= $urm['user_role'] ?> <?= $urm['user_bagian'] ?>)</option>
-                <?php endforeach ?>
+                <?php if ($user['user_role'] == 'Staff'): ?>
+                  <?php foreach ($user_role_m as $urm): ?>
+                    <option value="<?= $urm['user_nik'] ?>"><?= $urm['user_name'] ?> (<?= $urm['user_role'] ?> <?= $urm['user_bagian'] ?>)</option>
+                  <?php endforeach ?>
+                <?php else: ?>
+                  <?php foreach ($user_role_d as $urd): ?>
+                    <option value="<?= $urd['user_nik'] ?>"><?= $urd['user_name'] ?> | <?= $urd['user_role'] ?> <?= $urd['user_bagian'] ?></option>
+                  <?php endforeach ?>
+                <?php endif ?>
+                
               </select>
             </div>
             <div class="form-group">
               <label for="name">Perihal</label>
-              <input type="text" class="form-control" id="mm_perihal" name="mm_perihal" value="<?= $memo['mm_perihal'] ?>">
+              <input type="text" class="form-control" id="mm_perihal" name="mm_perihal" value="<?= $memo['mm_perihal'] ?>" required>
             </div>
             <div class="form-group">
               <label for="name">Isi Memo</label>
-              <textarea class="ckeditor" id="mm_isi" name="mm_isi"><?= $memo['mm_isi'] ?></textarea>
+              <textarea class="form-control" id="mm_isi" name="mm_isi" required><?= $memo['mm_isi'] ?></textarea>
             </div>
             <div class="form-group">
               <label for="exampleInputEmail3">Note</label>

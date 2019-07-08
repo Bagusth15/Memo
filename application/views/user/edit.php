@@ -13,19 +13,19 @@
             <div class="form-group">
               <label for="nik">NIK</label>
               <input type="hidden" name="user_id" id="user_id" value="<?= $user['user_id']; ?>">
-              <input type="text" class="form-control" id="user_nik" name="user_nik" value="<?= $user['user_nik']; ?>">
+              <input type="text" class="form-control" id="user_nik" name="user_nik" value="<?= $user['user_nik']; ?>" required>
             </div>
             <div class="form-group">
               <label for="name">Nama</label>
-              <input type="text" class="form-control" id="user_name" name="user_name" value="<?= $user['user_name']; ?>">
+              <input type="text" class="form-control" id="user_name" name="user_name" value="<?= $user['user_name']; ?>" required>
             </div>
             <div class="form-group">
               <label for="exampleInputEmail3">No Telp</label>
-              <input type="number" class="form-control" id="user_no_telp" name="user_no_telp" value="<?= $user['user_no_telp']; ?>">
+              <input type="number" class="form-control" id="user_no_telp" name="user_no_telp" value="<?= $user['user_no_telp']; ?>" required>
             </div>
             <div class="form-group">
               <label for="exampleInputEmail3">Email</label>
-              <input type="email" class="form-control" id="user_email" name="user_email" value="<?= $user['user_email']; ?>">
+              <input type="email" class="form-control" id="user_email" name="user_email" value="<?= $user['user_email']; ?>" required>
             </div>
             <!-- <div class="form-group">
               <label for="exampleSelectGender">Jenis Kelamin</label>

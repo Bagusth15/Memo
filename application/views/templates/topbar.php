@@ -35,33 +35,68 @@
             </form>
           </div>
         </li>
-
-        <!-- Nav Item - Alerts -->
-        <li class="nav-item dropdown no-arrow mx-1">
-          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-file-alt fa-fw"></i>
-            <!-- Counter - Alerts -->
-            <span class="badge badge-danger badge-counter">3+</span>
-          </a>
-          <!-- Dropdown - Alerts -->
-          <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-            <h6 class="dropdown-header">
-              Notification
-            </h6>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-              <div class="mr-3">
-                <div class="icon-circle bg-info">
-                  <i class="fas fa-file-alt text-white"></i>
-                </div>
-              </div>
-              <div>
-                <div class="small text-gray-500">December 12, 2019</div>
-                <span class="font-weight-bold">Memo Baru Dari ....</span>
-              </div>
+        <?php if ($user['user_role'] == 'Administrator' || $user['user_role'] == 'Direktur'): ?>
+          <!-- Nav Item - Alerts -->
+          <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user fa-fw"></i>
+              <!-- Counter - Alerts -->
+              <span class="badge badge-danger badge-counter"><?= $notif_userr; ?></span>
             </a>
-            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Memo</a>
-          </div>
-        </li>
+            <!-- Dropdown - Alerts -->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+              <h6 class="dropdown-header">
+                Notification User
+              </h6>
+              <?php foreach ($data_userr as $du): ?>
+                <?php if ($du['user_is_active'] == 0 && $du['user_role'] == 0): ?>
+                <a class="dropdown-item d-flex align-items-center" href="<?= base_url('data_user/edit/'); ?><?= $du['user_id']; ?>">
+                  <div class="mr-3  ">
+                    <div class="icon-circle bg-info">
+                      <i class="fas fa-user text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500"><?= date('d F Y', $du['user_date_created']); ?></div>
+                    <span class="font-weight-bold">User <?= $du['user_name']; ?> Mendaftar</span>
+                  </div>
+                </a>
+                <?php endif ?>
+              <?php endforeach ?>
+              <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('data_user'); ?>">Show All User</a>
+            </div>
+          </li>
+        <?php endif ?>
+        <?php if ($user['user_role'] != 'Administrator' && $user['user_role'] != 'Staff'): ?>
+          <!-- Nav Item - Alerts -->
+          <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-file-alt fa-fw"></i>
+              <!-- Counter - Alerts -->
+              <span class="badge badge-danger badge-counter"><?= $notif; ?></span>
+            </a>
+            <!-- Dropdown - Alerts -->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+              <h6 class="dropdown-header">
+                Notification Memo
+              </h6>
+              <?php foreach ($isi_notif as $in): ?>
+                <a class="dropdown-item d-flex align-items-center" href="<?= base_url('memo/detail/'); ?><?= $in['mm_id']; ?>">
+                  <div class="mr-3  ">
+                    <div class="icon-circle bg-info">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500"><?= date('d F Y', $in['mm_tgl_buat']); ?></div>
+                    <span class="font-weight-bold">Memo Baru Dari <br> <?= $in['user_name']; ?> | <?= $in['user_role']; ?></span>
+                  </div>
+                </a>
+              <?php endforeach ?>
+              <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('memo'); ?>">Show All Memo</a>
+            </div>
+          </li>
+        <?php endif ?>
 
         <div class="topbar-divider d-none d-sm-block"></div>
 

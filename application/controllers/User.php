@@ -6,13 +6,19 @@ class User extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->library('form_validation');
+		$this->load->model('M_user');
+		is_logged_in();
 	}
 
 	public function index()
 	{
 		$data['title'] = 'My Profil';
 		$data['user'] = $this->db->get_where('tbl_user', ['user_id' => $this->session->userdata('user_id')])->row_array();
+		$nik = $data['user']['user_nik'];
+		$data['data_userr'] = $this->M_user->getAllUser();
+		$data['notif_userr'] = $this->M_user->jumlahNotifUser();
+		$data['notif'] = $this->M_user->jumlahNotifMasuk($nik);
+		$data['isi_notif'] = $this->M_user->isiNotifMasuk($nik);
 		
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar', $data);
@@ -25,6 +31,12 @@ class User extends CI_Controller
 	{
 		$data['title'] = 'Edit Profil';
 		$data['user'] = $this->db->get_where('tbl_user', ['user_id' => $this->session->userdata('user_id')])->row_array();
+		$nik = $data['user']['user_nik'];
+		$data['data_userr'] = $this->M_user->getAllUser();
+		$data['notif_userr'] = $this->M_user->jumlahNotifUser();
+		$data['notif'] = $this->M_user->jumlahNotifMasuk($nik);
+		$data['isi_notif'] = $this->M_user->isiNotifMasuk($nik);
+
 		$this->form_validation->set_rules('user_name', 'Full Name', 'required|trim');
 
 		if ($this->form_validation->run() == false) {
@@ -59,6 +71,12 @@ class User extends CI_Controller
 	{
 		$data['title'] = 'Change Password';
 		$data['user'] = $this->db->get_where('tbl_user', ['user_id' => $this->session->userdata('user_id')])->row_array();
+
+		$nik = $data['user']['user_nik'];
+		$data['data_userr'] = $this->M_user->getAllUser();
+		$data['notif_userr'] = $this->M_user->jumlahNotifUser();
+		$data['notif'] = $this->M_user->jumlahNotifMasuk($nik);
+		$data['isi_notif'] = $this->M_user->isiNotifMasuk($nik);
 		
 		$this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
 		$this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[3]|matches[new_password2]');
